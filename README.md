@@ -59,15 +59,19 @@ The rule that holds everything together: an agent can only return **one typed pr
 
 ## The idea: a technological organism
 
-Fabrix is built around a biological metaphor, summarised in three pictures.
+Fabrix treats a plant the way biology treats a body: fast reflexes that act, slower cognition that decides, and a strict boundary between the two.
 
-### Horse, rider and saddle
+### Two systems, and the boundary between them
+
+Existing automation is fast, precise and context-blind. A cognitive layer is slow, contextual and capable of being wrong. Putting them together safely is the whole design problem — so they are kept apart, with a validating boundary in between.
 
 | Part | Role | In this prototype |
 | --- | --- | --- |
-| 🐎 **Horse** (System 1) | Existing deterministic automation: precise, tireless, real-time, blind to wider context | The simulated plant with its feedback control and safety cutoff |
-| 🧠 **Rider** (System 2) | A cognitive agent layer that brings intention, context and reasoning, and copes with novelty | The main agent harness plus the core agents |
-| 🛡️ **Saddle** | Middleware that turns intent into machine commands and enforces safety *before* actuation | The Gateway and the order pipeline |
+| ⚙️ **Control** (System 1) | Existing deterministic automation: precise, tireless, real-time, blind to wider context | The simulated plant with its feedback control and safety cutoff |
+| 🧠 **Cognition** (System 2) | An agent layer that brings intention, context and reasoning, and copes with novelty | The main agent harness plus the core agents |
+| 🛡️ **Boundary** | Middleware that turns intent into machine commands and enforces safety *before* actuation | The Gateway and the order pipeline |
+
+Cognition never actuates. It can only hand a typed proposal to the boundary, which validates it against live plant state and either executes it or refuses.
 
 ### Three layers, by timescale and authority
 
@@ -107,7 +111,7 @@ Each core has an always-on deterministic monitor, a Google ADK agent woken when 
 
 | ✅ Implemented in the prototype | 📐 Described by the architecture, not implemented here |
 | --- | --- |
-| Propose, validate, execute with a deterministic Gateway | A separate "Meta-Rider" ethical governor (its hard-constraint role is covered by the Gateway and the operator controls) |
+| Propose, validate, execute with a deterministic Gateway | A separate ethical governor above the cognitive layer (its hard-constraint role is covered by the Gateway and the operator controls) |
 | Reflexive, perceptual and cognitive layers with tiered loops | The DREAM consolidation process and drift-driven model retraining |
 | Agent harnesses (Antigravity SDK, Google ADK) using MCP tools and Agent Skills | A persistent memory and knowledge graph |
 | Faculties summoned on demand through `ask_core` | Native physical-AI models (sensor-language, vision-language-action, world models) |
