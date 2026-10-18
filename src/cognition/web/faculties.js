@@ -24,7 +24,7 @@ export async function facultiesPage({ api }) {
   }
   // The plant is whichever one the studio last showed (remembered by the browser), unless the URL names one.
   let stored = null;
-  try { stored = localStorage.getItem("avenor.plant"); } catch { /* storage unavailable */ }
+  try { stored = localStorage.getItem("fabrix.plant"); } catch { /* storage unavailable */ }
   const known = (id) => plants.find((p) => p.spec.id === id)?.spec.id;
   const plantId = known(params.get("plant")) ?? known(stored) ?? plants[0].spec.id;
   const stage = el("div", "hn-stage");

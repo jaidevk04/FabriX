@@ -15,7 +15,7 @@ def build(context: ApiContext) -> APIRouter:
 
     @router.get("/health")
     def health():
-        return {"application": "avenor", "status": "ok", "mode": "simulation", "version": "0.1.0"}
+        return {"application": "fabrix", "status": "ok", "mode": "simulation", "version": "0.1.0"}
 
     @router.get("/api/harnesses")
     def harnesses():

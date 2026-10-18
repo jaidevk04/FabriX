@@ -473,7 +473,7 @@ export function impactPage({ api }) {
       if (!plants.length) {
         plants = await api("/api/plants");
         let stored = null;
-        try { stored = localStorage.getItem("avenor.plant"); } catch { /* storage unavailable */ }
+        try { stored = localStorage.getItem("fabrix.plant"); } catch { /* storage unavailable */ }
         const known = (id) => plants.find((p) => p.spec.id === id)?.spec.id;
         plantId = known(plantId) ?? known(stored) ?? plants[0]?.spec.id ?? null;
       }

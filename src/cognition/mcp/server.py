@@ -14,7 +14,7 @@ def build(base_url: str = "http://127.0.0.1:8000"):
     from mcp.server import MCPServer
     from mcp.types import ToolAnnotations
 
-    mcp = MCPServer("Avenor simulator catalog")
+    mcp = MCPServer("Fabrix simulator catalog")
 
     @mcp.tool(annotations=ToolAnnotations(read_only_hint=True, open_world_hint=False))
     def list_plants() -> list[dict]:

@@ -14,7 +14,7 @@ def test_first_launch_creates_settings_and_repeat_preserves_edits(tmp_path, monk
     assert settings.read_text(encoding="utf-8") == "GOOGLE_API_KEY=example-test-value\n"
 
 
-def test_only_avenor_health_is_accepted(monkeypatch):
+def test_only_fabrix_health_is_accepted(monkeypatch):
     from io import BytesIO
 
     monkeypatch.setattr(
@@ -24,7 +24,7 @@ def test_only_avenor_health_is_accepted(monkeypatch):
     monkeypatch.setattr(
         bootstrap.urllib.request,
         "urlopen",
-        lambda *a, **k: BytesIO(b'{"application":"avenor","status":"ok"}'),
+        lambda *a, **k: BytesIO(b'{"application":"fabrix","status":"ok"}'),
     )
     assert bootstrap.healthy("http://127.0.0.1:8000")
 

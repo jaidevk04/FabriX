@@ -53,7 +53,7 @@
         }
       ],
       "session_input": {
-        "app_name": "avenor_cores",
+        "app_name": "fabrix_cores",
         "user_id": "platform",
         "state": {}
       }
@@ -96,7 +96,7 @@
         }
       ],
       "session_input": {
-        "app_name": "avenor_cores",
+        "app_name": "fabrix_cores",
         "user_id": "platform",
         "state": {}
       }
@@ -134,7 +134,7 @@
         }
       ],
       "session_input": {
-        "app_name": "avenor_cores",
+        "app_name": "fabrix_cores",
         "user_id": "platform",
         "state": {}
       }

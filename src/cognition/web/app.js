@@ -1,14 +1,14 @@
 import {
   temperatureInstrument,
   dutyInstruments,
-} from "./instruments.js?v=avenor-20261013-1";
+} from "./instruments.js?v=fabrix-20261013-1";
 import { investigationConsole } from "./console.js";
 import { industryInstruments } from "./process-instruments.js";
 import { operationsView } from "./operations.js";
-import { plantViews } from "./plant-views.js?v=avenor-20261020-6";
+import { plantViews } from "./plant-views.js?v=fabrix-20261020-6";
 import { fleetView } from "./fleet.js";
 import { addPlantPage } from "./add-plant.js";
-import { impactPage } from "./impact.js?v=avenor-20261018-1";
+import { impactPage } from "./impact.js?v=fabrix-20261018-1";
 import { facultiesPage } from "./faculties.js";
 import { agentsPage } from "./agents.js";
 const terminal = investigationConsole();
@@ -420,7 +420,7 @@ function renderTelemetry(value) {
 function selectPlant(id) {
   if (busy || selectedId === id) return;
   selectedId = id;
-  try { localStorage.setItem("avenor.plant", id); } catch { /* storage unavailable */ }
+  try { localStorage.setItem("fabrix.plant", id); } catch { /* storage unavailable */ }
   industryInstruments(null);
   loadInstruments(id);
   loadOperations(id);
@@ -657,7 +657,7 @@ async function refresh() {
   if (!selectedId) {
     // The URL wins, then the plant last shown on any page; the first plant is only the last resort.
     let stored = null;
-    try { stored = localStorage.getItem("avenor.plant"); } catch { /* storage unavailable */ }
+    try { stored = localStorage.getItem("fabrix.plant"); } catch { /* storage unavailable */ }
     const known = (id) => plants.find((q) => q.spec.id === id)?.spec.id;
     selectedId = known(new URLSearchParams(location.search).get("plant")) ?? known(stored) ?? null;
   }
@@ -667,7 +667,7 @@ async function refresh() {
   }
   const p = state();
   if (!p) return;
-  try { localStorage.setItem("avenor.plant", selectedId); } catch { /* storage unavailable */ }
+  try { localStorage.setItem("fabrix.plant", selectedId); } catch { /* storage unavailable */ }
   if (
     before !== undefined &&
     before !== p.revision &&
@@ -906,7 +906,7 @@ async function init() {
   }
   try {
     if (currentPage !== "studio") return startPolling();
-    const { TwinScene } = await import("./scene.js?v=avenor-20261019-1");
+    const { TwinScene } = await import("./scene.js?v=fabrix-20261019-1");
     scene = new TwinScene($("viewport"), () => {});
     scene.setState(state());
     $("motion").textContent = scene.motion ? "Pause motion" : "Resume motion";

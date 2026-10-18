@@ -1,4 +1,4 @@
-"""Install missing application dependencies and start Avenor on either platform."""
+"""Install missing application dependencies and start Fabrix on either platform."""
 
 import argparse
 import hashlib
@@ -57,7 +57,7 @@ def ensure_environment(directory: Path, extra: str | None, repair: bool) -> Path
         + sys.platform.encode()
         + (extra or "core").encode()
     ).hexdigest()
-    stamp = directory / ".avenor-setup"
+    stamp = directory / ".fabrix-setup"
     probe = (
         "import cognition, fastapi, uvicorn, dotenv; from cognition.config import load_environment"
     )
@@ -104,7 +104,7 @@ def healthy(url: str) -> bool:
     try:
         with urllib.request.urlopen(url + "/health", timeout=1) as response:
             status = json.load(response)
-        return status.get("application") == "avenor" and status.get("status") == "ok"
+        return status.get("application") == "fabrix" and status.get("status") == "ok"
     except (OSError, ValueError, urllib.error.URLError):
         return False
 
@@ -112,7 +112,7 @@ def healthy(url: str) -> bool:
 def start(executable: Path, port: int, no_browser: bool) -> None:
     url = f"http://127.0.0.1:{port}"
     if healthy(url):
-        print(f"Avenor is already running at {url}", flush=True)
+        print(f"Fabrix is already running at {url}", flush=True)
         if not no_browser:
             webbrowser.open(url + "/studio")
         return
@@ -127,7 +127,7 @@ def start(executable: Path, port: int, no_browser: bool) -> None:
             if process.poll() is not None:
                 raise RuntimeError(f"Backend exited during startup (exit {process.returncode}).")
             if healthy(url):
-                print(f"\nAvenor is ready: {url}/studio\nPress Ctrl+C to stop.\n", flush=True)
+                print(f"\nFabrix is ready: {url}/studio\nPress Ctrl+C to stop.\n", flush=True)
                 if not no_browser:
                     webbrowser.open(url + "/studio")
                 break
@@ -168,7 +168,7 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\nAvenor stopped.")
+        print("\nFabrix stopped.")
     except (OSError, RuntimeError, subprocess.CalledProcessError) as error:
-        print(f"\nAvenor could not start: {error}", file=sys.stderr)
+        print(f"\nFabrix could not start: {error}", file=sys.stderr)
         raise SystemExit(1) from None

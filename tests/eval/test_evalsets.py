@@ -28,7 +28,7 @@ def test_evalsets_are_valid_adk_format_and_use_real_tools(core):
     for case in cases(core):
         turn = case["conversation"][0]
         assert turn["user_content"]["parts"][0]["text"] and turn["final_response"]["parts"]
-        assert case["session_input"]["app_name"] == "avenor_cores"
+        assert case["session_input"]["app_name"] == "fabrix_cores"
         for name in expected_tools(case):
             assert name in REGISTRY and REGISTRY[name].core == core
 

@@ -1,1 +1,1 @@
-"""Avenor platform module."""
+"""Fabrix platform module."""

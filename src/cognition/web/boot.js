@@ -7,7 +7,7 @@
   // Collapsed unless the user has expanded it before (that choice is remembered).
   let collapsed = true;
   try {
-    collapsed = localStorage.getItem("avenor.sidebar") !== "expanded";
+    collapsed = localStorage.getItem("fabrix.sidebar") !== "expanded";
   } catch {
     /* storage unavailable: keep default */
   }
@@ -28,7 +28,7 @@
       const closed = root.dataset.sidebar !== "collapsed";
       root.dataset.sidebar = closed ? "collapsed" : "expanded";
       try {
-        localStorage.setItem("avenor.sidebar", root.dataset.sidebar);
+        localStorage.setItem("fabrix.sidebar", root.dataset.sidebar);
       } catch {
         /* storage unavailable: state is per-page only */
       }

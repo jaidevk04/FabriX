@@ -9,7 +9,7 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument("--output", type=Path, default=root / "dist" / "Avenor_Source.zip")
+parser.add_argument("--output", type=Path, default=root / "dist" / "Fabrix_Source.zip")
 output = parser.parse_args().output.resolve()
 output.parent.mkdir(parents=True, exist_ok=True)
 excluded = {

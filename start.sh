@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-trap 'printf "\nAvenor startup failed. Resolve the error above and run this launcher again.\n" >&2' ERR
+trap 'printf "\nFabrix startup failed. Resolve the error above and run this launcher again.\n" >&2' ERR
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
 ok='import sys; sys.exit(sys.version_info < (3, 12))'

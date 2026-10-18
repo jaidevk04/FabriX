@@ -63,7 +63,7 @@ const ago = (iso) => {
 // The 3D module is large, so it loads after the cards are on screen. Without WebGL, cards fall back
 // to the animated schematic.
 let sceneModule;
-const loadScene = () => (sceneModule ??= import("./scene.js?v=avenor-20261019-1").catch(() => null));
+const loadScene = () => (sceneModule ??= import("./scene.js?v=fabrix-20261019-1").catch(() => null));
 
 function buildFallback(view) {
   const model = view.model;

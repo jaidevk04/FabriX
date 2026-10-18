@@ -33,7 +33,7 @@ const STEPS = [
   ["apply", "Apply"],
   ["verify", "Verify"],
 ];
-const STORAGE = { mode: "avenor.sim.mode", harness: "avenor.sim.harness", stopOn: "avenor.sim.stopOn", stopCount: "avenor.sim.stopCount" };
+const STORAGE = { mode: "fabrix.sim.mode", harness: "fabrix.sim.harness", stopOn: "fabrix.sim.stopOn", stopCount: "fabrix.sim.stopCount" };
 const DEFAULT_STOP_COUNT = 2;
 const remember = (key, value) => {
   try { localStorage.setItem(key, value); } catch { /* storage unavailable: choice is per-page */ }
@@ -230,7 +230,7 @@ export function plantViews({ api, getSelected, select, onUnit, onData, focusTwin
 
   // The disturbance you picked or injected is remembered per plant, so it is still selected after
   // visiting another page. Disturbances that are active right now carry an "Active" tag in the list.
-  const faultKey = (id) => `avenor.fault.${id}`;
+  const faultKey = (id) => `fabrix.fault.${id}`;
   const recalledFault = (id) => { try { return localStorage.getItem(faultKey(id)); } catch { return null; } };
   const rememberFault = (id, kind) => { try { localStorage.setItem(faultKey(id), kind); } catch { /* storage unavailable */ } };
   let activeFaults = [];

@@ -14,7 +14,7 @@ from cognition.mcp.runtime import BearerGuard, serve
 def build_incident_server(tools: Tools) -> MCPServer:
     profile = get_industry(tools.request.snapshot.spec.industry).PROFILE
     server = MCPServer(
-        f"Avenor {profile.id} incident",
+        f"Fabrix {profile.id} incident",
         instructions=(
             "Scoped observations and simulations only. "
             "Command execution is a separate gateway authority."

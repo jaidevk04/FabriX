@@ -61,7 +61,7 @@ def create_app(path: str | None = None) -> FastAPI:
             await app.state.platform.core_agents.close()
             store.close()
 
-    app = FastAPI(title="Avenor", version="0.1.0", lifespan=lifespan)
+    app = FastAPI(title="Fabrix", version="0.1.0", lifespan=lifespan)
 
     @app.middleware("http")
     async def revalidate_workspace_assets(request, call_next):

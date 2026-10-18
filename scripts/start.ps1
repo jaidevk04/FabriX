@@ -15,7 +15,7 @@ try {
     New-Item -ItemType Directory -Force -Path $env:UV_UNMANAGED_INSTALL | Out-Null
     $uvExecutable = Join-Path $env:UV_UNMANAGED_INSTALL 'uv.exe'
     if (-not (Test-Path -LiteralPath $uvExecutable)) {
-        Write-Host 'Preparing Avenor runtime...'
+        Write-Host 'Preparing Fabrix runtime...'
         $installerPath = Join-Path $projectRoot '.runtime\install-uv.ps1'
         Invoke-WebRequest -Uri 'https://astral.sh/uv/install.ps1' -OutFile $installerPath -UseBasicParsing
         & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $installerPath
@@ -39,7 +39,7 @@ try {
     & $uvExecutable @launchArguments
     exit $LASTEXITCODE
 } catch {
-    Write-Error "Avenor startup failed: $($_.Exception.Message)"
+    Write-Error "Fabrix startup failed: $($_.Exception.Message)"
     exit 1
 } finally {
     Set-Location -LiteralPath $previousLocation

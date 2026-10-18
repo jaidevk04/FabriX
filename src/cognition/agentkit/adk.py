@@ -87,10 +87,10 @@ async def run_structured(
     from google.adk.runners import InMemoryRunner
     from google.genai import types
 
-    runner = InMemoryRunner(agent=agent, app_name="avenor_cores")
+    runner = InMemoryRunner(agent=agent, app_name="fabrix_cores")
     try:
         created = await runner.session_service.create_session(
-            app_name="avenor_cores", user_id="platform", session_id=session
+            app_name="fabrix_cores", user_id="platform", session_id=session
         )
         output = ""
         async for event in runner.run_async(

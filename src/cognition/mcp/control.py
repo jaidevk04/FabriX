@@ -22,7 +22,7 @@ async def execute_authorized(
     live: bool,
     max_drift: int = 0,
 ) -> Receipt:
-    server = MCPServer("Avenor authorized command")
+    server = MCPServer("Fabrix authorized command")
     rejection: list[Rejected] = []
 
     @server.tool(

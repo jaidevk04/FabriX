@@ -50,7 +50,7 @@ export async function agentsPage({ api }) {
   }
   if (!plants.length) { host.replaceChildren(el("p", "cr-empty", "No plants yet. Add a plant to see its agents.")); return; }
   let stored = null;
-  try { stored = localStorage.getItem("avenor.plant"); } catch { /* storage unavailable */ }
+  try { stored = localStorage.getItem("fabrix.plant"); } catch { /* storage unavailable */ }
   const known = (id) => plants.find((p) => p.spec.id === id)?.spec.id;
   const plantId = known(params.get("plant")) ?? known(stored) ?? plants[0].spec.id;
   const plantName = plants.find((p) => p.spec.id === plantId)?.spec.name ?? plantId;
