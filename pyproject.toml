@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "industrial-cognition"
+version = "0.1.0"
+description = "Harness-neutral industrial cognitive automation simulation platform"
+requires-python = ">=3.12"
+dependencies = ["pydantic==2.14.1", "fastapi==0.141.1", "uvicorn==0.54.0", "python-dotenv>=1.2,<2", "mcp==2.3.0", "a2a-sdk==1.2.2", "httpx==0.28.1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "pytest-asyncio>=1,<2", "httpx>=0.28,<1", "ruff>=0.12,<1", "mypy>=1.15,<2"]
+mcp = ["mcp==2.3.0"]
+a2a = ["a2a-sdk==1.2.2", "httpx==0.28.1"]
+deepagents = ["deepagents==0.7.21", "langchain-google-genai==4.4.0"]
+adk = ["google-adk==2.11.0"]
+antigravity = ["google-antigravity==0.1.22", "protobuf==7.36.2"]
+
+[project.scripts]
+cognition = "cognition.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cognition"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = [".venv*", ".runtime", "output"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.mypy]
+python_version = "3.12"
+files = ["src/cognition"]
+check_untyped_defs = true
+follow_imports = "skip"
+ignore_missing_imports = true
+

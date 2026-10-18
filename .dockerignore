@@ -1,0 +1,7 @@
+# Allow-list: only what the image needs. Everything else (.kiro, caches, venvs, tests, docs, secrets, data) stays out.
+*
+!requirements.txt
+!pyproject.toml
+!src/
+**/__pycache__
+**/*.pyc

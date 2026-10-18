@@ -1,0 +1,688 @@
+/* Avenor light theme: tokens, elevation, sidebar rail and component polish.
+   Loaded after style.css; only overrides presentation, never layout contracts. */
+:root {
+  --bg: #f4f6f9;
+  --surface: #fff;
+  --surface-2: #f8fafc;
+  --surface-3: #f1f4f8;
+  --border: #e4e8ee;
+  --border-strong: #d3dae3;
+  --text: #0f1b2a;
+  --text-2: #44546a;
+  --text-3: #66768b;
+  --brand: #2d6a94;
+  --brand-hover: #245a80;
+  --brand-tint: #eaf2f8;
+  --brand-ring: rgb(45 106 148 / 22%);
+  --ok: #157a5b;
+  --ok-tint: #e7f5ef;
+  --warn: #a8610d;
+  --warn-tint: #fff3e1;
+  --bad: #b13a3a;
+  --bad-tint: #fdecec;
+  --sh-xs: 0 1px 2px rgb(16 28 45 / 6%);
+  --sh-sm: 0 1px 3px rgb(16 28 45 / 8%), 0 1px 2px rgb(16 28 45 / 5%);
+  --sh-md: 0 6px 14px -4px rgb(16 28 45 / 10%), 0 2px 5px -2px rgb(16 28 45 / 6%);
+  --sh-lg: 0 18px 36px -10px rgb(16 28 45 / 16%), 0 6px 12px -6px rgb(16 28 45 / 8%);
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --sb-w: 244px;
+  --sb-w-collapsed: 76px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --line: var(--border);
+  --accent: var(--brand);
+  --navy: var(--text);
+  font-family: Inter, "Segoe UI Variable", "Segoe UI", system-ui, -apple-system,
+    "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+html[data-sidebar="collapsed"] {
+  --sb-w: var(--sb-w-collapsed);
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-feature-settings: "cv11", "ss01";
+}
+h1, h2, h3 {
+  color: var(--text);
+  letter-spacing: -0.015em;
+}
+.muted, .intro p:last-child {
+  color: var(--text-3);
+}
+::selection {
+  background: var(--brand-tint);
+}
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ---------- Sidebar (light, collapsible rail) ---------- */
+.app-sidebar {
+  width: var(--sb-w);
+  background: var(--surface);
+  color: var(--text-2);
+  border-right: 1px solid var(--border);
+  box-shadow: 1px 0 0 rgb(16 28 45 / 2%), 8px 0 24px -16px rgb(16 28 45 / 14%);
+  padding: 16px 12px;
+  transition: width 0.22s var(--ease);
+  overflow: hidden;
+}
+.app-shell {
+  margin-left: var(--sb-w);
+  transition: margin-left 0.22s var(--ease);
+}
+.sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 44px;
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+.brand {
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  gap: 10px;
+  padding: 0;
+  min-width: 0;
+}
+.brand img {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  filter: drop-shadow(0 1px 2px rgb(45 106 148 / 25%));
+}
+.sidebar-toggle {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  min-height: 34px;
+  padding: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--text-3);
+  border: 1px solid transparent;
+}
+.sidebar-toggle:hover {
+  background: var(--surface-3);
+  color: var(--text);
+}
+.sidebar-toggle svg,
+.nav-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+nav {
+  gap: 4px;
+}
+nav a {
+  position: relative;
+  color: var(--text-2);
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  gap: 12px;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+nav a:hover {
+  background: var(--surface-3);
+  color: var(--text);
+}
+nav a[aria-current="page"],
+html[data-workspace] nav a[aria-current="page"] {
+  background: var(--brand-tint);
+  color: var(--brand);
+  font-weight: 600;
+}
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  font-size: 0;
+}
+html[data-sidebar="collapsed"] .brand-name,
+html[data-sidebar="collapsed"] .nav-label {
+  display: none;
+}
+html[data-sidebar="collapsed"] .sidebar-head {
+  flex-direction: column;
+  height: auto;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+html[data-sidebar="collapsed"] nav a {
+  justify-content: center;
+  padding: 11px 0;
+}
+html[data-sidebar="collapsed"] nav a:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--text);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 9px;
+  border-radius: 6px;
+  white-space: nowrap;
+  box-shadow: var(--sh-md);
+  z-index: 40;
+  pointer-events: none;
+}
+html[data-sidebar="collapsed"] .app-sidebar {
+  overflow: visible;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  background: rgb(255 255 255 / 82%);
+  backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-3);
+}
+.topbar strong {
+  color: var(--text);
+}
+
+/* ---------- Surfaces and elevation ---------- */
+.panel,
+.overview,
+.automation-panel,
+.asset-toolbar,
+.plant-choice,
+.kpis > .kpi,
+.plant-card,
+.scene-panel,
+details.panel,
+.process-instrument,
+.agent-console {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-sm);
+}
+.overview {
+  overflow: hidden;
+}
+.kpis {
+  box-shadow: none;
+  border: 0;
+}
+.plant-card {
+  background: var(--surface);
+  transition: box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.plant-card:hover {
+  box-shadow: var(--sh-lg);
+  transform: translateY(-2px);
+}
+.automation-panel {
+  background: var(--surface);
+}
+.operating-note {
+  background: var(--surface-2);
+}
+.fleet-board .panel {
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-md);
+}
+.kpis > .kpi {
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-md);
+}
+.kpi-icon {
+  box-shadow: inset 0 0 0 1px rgb(16 28 45 / 4%);
+}
+.plant-stats > div {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+.plant-gauge,
+.duty-bar {
+  background: var(--surface-3);
+}
+.plant-duty small,
+.plant-card header small,
+.plant-reading em,
+.plant-card footer,
+.plant-stats dt {
+  color: var(--text-3);
+}
+.asset-icon {
+  background: var(--brand-tint);
+  border: 1px solid rgb(45 106 148 / 14%);
+  color: var(--brand);
+  border-radius: 10px;
+}
+.overview span,
+td small,
+.recent-row small,
+.recent-row time {
+  color: var(--text-3);
+}
+.overview small {
+  color: var(--text-3);
+}
+
+/* ---------- Buttons and fields ---------- */
+button,
+.button {
+  background: var(--brand);
+  border-radius: var(--r-sm);
+  min-height: 38px;
+  font-weight: 600;
+  box-shadow: var(--sh-xs), inset 0 1px 0 rgb(255 255 255 / 14%);
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+button:hover,
+.button:hover {
+  background: var(--brand-hover);
+}
+button:active,
+.button:active {
+  transform: translateY(1px);
+}
+button.secondary,
+.button.secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--sh-xs);
+}
+button.secondary:hover,
+.button.secondary:hover {
+  background: var(--surface-2);
+  border-color: #bcc7d4;
+}
+button.quiet {
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-3);
+}
+.sidebar-toggle,
+.sidebar-toggle:hover {
+  box-shadow: none;
+}
+input,
+select,
+textarea {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--sh-xs);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-ring);
+}
+input::placeholder {
+  color: #8593a6;
+}
+a {
+  color: var(--brand);
+}
+.segmented {
+  border-radius: var(--r-sm);
+  border-color: var(--border-strong);
+  box-shadow: var(--sh-xs);
+}
+.segmented button {
+  box-shadow: none;
+  color: var(--text-2);
+}
+.segmented button.active {
+  background: var(--brand-tint);
+  color: var(--brand);
+}
+
+/* ---------- Status pills ---------- */
+.status {
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-weight: 600;
+  background: var(--surface-3);
+  color: var(--text-2);
+}
+.status.healthy,
+.status.resolved {
+  background: var(--ok-tint);
+  color: var(--ok);
+}
+.status.fault,
+.status.escalated {
+  background: var(--warn-tint);
+  color: var(--warn);
+}
+.status.failed,
+.status.interrupted {
+  background: var(--bad-tint);
+  color: var(--bad);
+}
+.tag {
+  border-radius: 999px;
+}
+
+/* ---------- Tables ---------- */
+th {
+  background: var(--surface-2);
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 11px;
+  border-color: var(--border);
+}
+td {
+  border-bottom-color: var(--border);
+  color: var(--text);
+}
+tbody tr {
+  transition: background 0.12s;
+}
+tbody tr:hover {
+  background: var(--surface-2);
+}
+.recent-row {
+  border-bottom-color: var(--border);
+}
+
+/* ---------- Studio details ---------- */
+.process-instrument {
+  box-shadow: var(--sh-xs);
+  border-radius: 10px;
+  background: var(--surface);
+  transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
+}
+.process-instrument:hover {
+  background: var(--surface);
+  border-color: var(--border-strong);
+  box-shadow: var(--sh-md);
+  transform: translateY(-1px);
+}
+.process-instrument[aria-pressed="true"] {
+  background: var(--brand-tint);
+  border-color: rgb(45 106 148 / 45%);
+}
+.layer-chip {
+  background: var(--surface);
+  box-shadow: var(--sh-xs);
+  color: var(--text);
+}
+.layer-chip:hover {
+  background: var(--surface-2);
+}
+.scene-panel,
+#viewport {
+  overflow: hidden;
+}
+#layer-dialog {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-lg);
+  color: var(--text);
+}
+#layer-dialog::backdrop {
+  background: rgb(16 28 45 / 35%);
+  backdrop-filter: blur(2px);
+}
+.automation-settings > div {
+  border-color: var(--border);
+  box-shadow: var(--sh-lg);
+  border-radius: var(--r-md);
+}
+.equipment-annotation {
+  border-radius: 8px;
+  box-shadow: var(--sh-sm);
+}
+
+/* ---------- Investigation console (light terminal) ---------- */
+.agent-console {
+  background: #fbfcfd;
+  color: #1f2d3d;
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--sh-md);
+  border-radius: var(--r-lg);
+  font-family: Consolas, "Liberation Mono", "SF Mono", Menlo, monospace;
+}
+.agent-console > summary {
+  background: var(--surface-3);
+  border-bottom: 1px solid var(--border);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 11px 16px;
+}
+.agent-console:not([open]) > summary { border-bottom: 0; }
+.agent-console > summary > span:first-child::before {
+  content: "$ ";
+  color: var(--brand);
+}
+.console-toolbar,
+.console-footer {
+  border-color: var(--border);
+  background: var(--surface-2);
+}
+.console-toolbar { padding: 8px 16px; }
+.console-footer { padding: 8px 16px; font-size: 11px; }
+#console-session,
+.console-footer,
+.console-empty {
+  color: var(--text-3);
+}
+#console-state { color: var(--ok); font-weight: 700; }
+.console-toolbar button.secondary {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border-strong);
+  min-height: 30px;
+  font-family: inherit;
+}
+.console-log {
+  background: #fbfcfd;
+  scrollbar-color: #b9c4d2 #fbfcfd;
+  font-size: 12.5px;
+  line-height: 1.6;
+  padding: 12px 16px;
+}
+.console-empty::before { content: "# "; }
+.console-row {
+  grid-template-columns: 64px 84px minmax(0, 1fr);
+  gap: 10px;
+  padding: 2px 0 2px 8px;
+  border-left: 2px solid transparent;
+}
+.console-row:hover { background: var(--surface-3); }
+.console-row time { color: var(--text-3); font-variant-numeric: tabular-nums; }
+.console-tag {
+  color: var(--brand);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+.console-content { color: #1f2d3d; }
+.console-row[data-tag="agent"] { border-left-color: var(--brand); }
+.console-row[data-tag="agent"] .console-tag { color: var(--brand); }
+.console-row[data-tag="tool"] .console-content { color: #6a3fa0; }
+.console-row[data-tag="tool"] .console-tag { color: #6a3fa0; }
+.console-row[data-tag="tool"] .console-content::before { content: "› "; }
+.console-row[data-tag="result"] .console-tag,
+.console-row[data-tag="sample"] .console-tag { color: var(--text-2); }
+.console-row[data-tag="proposal"] { border-left-color: var(--warn); background: var(--warn-tint); }
+.console-row[data-tag="proposal"] .console-tag { color: var(--warn); }
+.console-row[data-tag="approval"] .console-tag,
+.console-row[data-tag="specialist"] .console-tag { color: var(--warn); }
+.console-row[data-tag="outcome"] { margin-top: 6px; border-left-color: currentColor; }
+.console-row[data-tag="outcome"] .console-content { font-weight: 700; }
+.console-agent .console-content { color: #1f2d3d; }
+.console-success .console-content,
+.console-success .console-tag { color: var(--ok); }
+.console-error .console-content,
+.console-error .console-tag { color: var(--bad); }
+.console-row.console-success[data-tag="outcome"] { color: var(--ok); }
+.console-row.console-error[data-tag="outcome"] { color: var(--bad); }
+
+/* ---------- Responsive: sidebar becomes a top strip on small screens ---------- */
+@media (max-width: 1250px) {
+  .app-sidebar {
+    width: var(--sb-w);
+    padding: 16px 12px;
+  }
+  .app-shell {
+    margin-left: var(--sb-w);
+  }
+}
+@media (max-width: 850px) {
+  .app-sidebar {
+    width: 100%;
+    overflow: visible;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+  }
+  .app-shell {
+    margin-left: 0;
+  }
+  .sidebar-toggle {
+    display: none;
+  }
+  .sidebar-head {
+    margin-bottom: 8px;
+  }
+  html[data-sidebar="collapsed"] .brand-name,
+  html[data-sidebar="collapsed"] .nav-label {
+    display: inline;
+  }
+  html[data-sidebar="collapsed"] .sidebar-head {
+    flex-direction: row;
+  }
+  html[data-sidebar="collapsed"] nav a {
+    justify-content: flex-start;
+    padding: 10px;
+  }
+  html[data-sidebar="collapsed"] nav a:hover::after {
+    display: none;
+  }
+  nav a[aria-current="page"] {
+    box-shadow: none;
+  }
+  .topbar {
+    position: static;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-sidebar,
+  .app-shell,
+  .plant-card,
+  .process-instrument,
+  button {
+    transition: none;
+  }
+}
+
+/* ---------- Spacing fixes for panels without inner padding ---------- */
+details.panel > summary {
+  cursor: pointer;
+  padding: 14px 20px;
+  font-weight: 600;
+}
+details.panel[open] > summary {
+  border-bottom: 1px solid var(--border);
+}
+details.panel > :not(summary) {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+details.panel > form {
+  margin-bottom: 20px;
+}
+section.panel[data-pages="system"] {
+  margin-top: 20px;
+  overflow: hidden;
+}
+section.panel[data-pages="system"] > .section-heading {
+  padding: 18px 22px;
+}
+section.panel[data-pages="investigations"] > .section-heading {
+  padding: 18px 22px;
+}
+details.panel.onboarding > summary {
+  padding: 0;
+  border: 0;
+}
+details.panel.onboarding > :not(summary) {
+  margin-left: 0;
+  margin-right: 0;
+}
+details.panel.onboarding > form {
+  margin-bottom: 0;
+}
+
+
+/* ---------- Studio: asset switcher lives in the scene header ---------- */
+.studio-legacy { display: none !important; }
+.scene-actions { display: flex; align-items: center; gap: 12px; }
+.asset-switch select { min-width: 190px; min-height: 36px; font-size: 13px; font-weight: 600; padding: 6px 10px; }
+@media (max-width: 600px) { .scene-actions { flex-direction: column; align-items: flex-end; gap: 6px; } .asset-switch select { min-width: 150px; } }
+
+/* ---------- Studio: taller 3D viewport ---------- */
+.workspace #viewport {
+  height: clamp(340px, 56dvh, 820px);
+}
+@media (max-width: 850px) {
+  .workspace #viewport {
+    height: clamp(280px, 45dvh, 420px);
+  }
+}
+
+/* ---------- Studio: fit twin, instruments and view controls on one screen ---------- */
+html[data-workspace="studio"] main {
+  padding-top: 14px;
+}
+html[data-workspace="studio"] .scene-heading {
+  padding-block: 10px;
+}
+html[data-workspace="studio"] .scene-heading .eyebrow {
+  display: none;
+}
+@media (min-width: 851px) {
+  .workspace #viewport {
+    height: clamp(200px, calc(100dvh - var(--studio-chrome, 396px)), 820px);
+  }
+}
+
+/* View controls sit directly under the 3D viewport. */
+.view-toolbar {
+  background: var(--surface);
+  border-top: 0;
+  border-bottom: 1px solid var(--border);
+}

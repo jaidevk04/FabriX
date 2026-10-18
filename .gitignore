@@ -1,0 +1,50 @@
+# Environment and secrets -- never commit these
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+service-account*.json
+secrets.*
+
+# Python
+.venv*/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Runtime state and data
+.runtime/
+data/
+output/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.log
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+
+# Editors and OS
+.vscode/
+.idea/
+.kiro/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Node (UI has no build step, but keep it safe)
+node_modules/

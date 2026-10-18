@@ -1,0 +1,143 @@
+{
+  "eval_set_id": "vision_core_v1",
+  "name": "vision_core_v1",
+  "description": "Offline-replayable cases for the vision core.",
+  "eval_cases": [
+    {
+      "eval_id": "vision_case_1",
+      "conversation": [
+        {
+          "invocation_id": "vision-1-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "What do the cameras see?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The flame camera shows flame instability well above its healthy reference."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "vision_list_cameras",
+                "args": {}
+              },
+              {
+                "name": "vision_read_detections",
+                "args": {}
+              },
+              {
+                "name": "vision_measure_defect",
+                "args": {
+                  "camera": "flame_cam",
+                  "label": "flame instability"
+                }
+              },
+              {
+                "name": "vision_compare_reference",
+                "args": {
+                  "camera": "flame_cam"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "vision_case_2",
+      "conversation": [
+        {
+          "invocation_id": "vision-2-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Do signals back up the flame detection?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Signal evidence was read for the burner."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "vision_request_evidence",
+                "args": {
+                  "to_core": "learning",
+                  "kind": "read_signal_evidence",
+                  "target": "burner",
+                  "question": "Do flame signals deviate?"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "vision_case_3",
+      "conversation": [
+        {
+          "invocation_id": "vision-3-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Decide on the approved monitor configuration order."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "executed"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "vision_apply_monitor_config",
+                "args": {}
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    }
+  ]
+}

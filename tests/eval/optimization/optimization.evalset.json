@@ -1,0 +1,198 @@
+{
+  "eval_set_id": "optimization_core_v1",
+  "name": "optimization_core_v1",
+  "description": "Offline-replayable cases for the optimization core.",
+  "eval_cases": [
+    {
+      "eval_id": "optimization_case_1",
+      "conversation": [
+        {
+          "invocation_id": "optimization-1-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Find the best duty to recover."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Duty 40 recovers and improves on the baseline error."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "optimization_read_problem_context",
+                "args": {}
+              },
+              {
+                "name": "optimization_search_duty",
+                "args": {
+                  "goal": "recovery",
+                  "max_duty_change": 20
+                }
+              },
+              {
+                "name": "optimization_evaluate_candidate",
+                "args": {
+                  "value": 40
+                }
+              },
+              {
+                "name": "optimization_read_followup_status",
+                "args": {
+                  "incident_id": "example"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "optimization_case_2",
+      "conversation": [
+        {
+          "invocation_id": "optimization-2-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Does equipment condition change the trade-off?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Burner signal evidence was read."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "optimization_request_evidence",
+                "args": {
+                  "to_core": "learning",
+                  "kind": "read_signal_evidence",
+                  "target": "burner",
+                  "question": "Is the burner healthy?"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "optimization_case_3",
+      "conversation": [
+        {
+          "invocation_id": "optimization-3-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Decide on the approved duty order."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "executed"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "optimization_execute_order",
+                "args": {}
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "optimization_case_4",
+      "conversation": [
+        {
+          "invocation_id": "optimization-4-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Should we repair now or after the rush order, and who gets the spare?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Repair after the rush order is covered; the bearing spare goes to the drive."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "optimization_solve_assignment",
+                "args": {
+                  "problem": "maintenance_window",
+                  "horizon_hours": 6
+                }
+              },
+              {
+                "name": "optimization_solve_assignment",
+                "args": {
+                  "problem": "spares"
+                }
+              },
+              {
+                "name": "optimization_solve_assignment",
+                "args": {
+                  "problem": "robots"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    }
+  ]
+}

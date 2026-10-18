@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Fabrix | Operations</title>
+    <link rel="stylesheet" href="/static/style.css?v=avenor-20261016-3" />
+    <link rel="stylesheet" href="/static/theme.css?v=avenor-20261019-1" />
+    <link rel="stylesheet" href="/static/plant-views.css?v=avenor-20261017-1" />
+    <link rel="stylesheet" href="/static/design.css?v=avenor-20261020-7" />
+    <link rel="stylesheet" href="/static/cores.css?v=avenor-20261020-5" />
+    <link rel="stylesheet" href="/static/agents.css?v=avenor-20261020-2" />
+    <link rel="preload" href="/static/vendor/fonts/manrope-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
+    <script src="/static/boot.js?v=avenor-20261020-1"></script>
+    <script type="importmap">
+      { "imports": { "three": "/static/vendor/three.module.js" } }
+    </script>
+    <script type="module" src="/static/app.js?v=avenor-20261020-7"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to workspace</a>
+    <aside class="app-sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <a class="brand" href="/fleet" aria-label="Fabrix fleet overview"
+          ><img src="/static/avenor-mark.png" alt="" width="36" height="36" /><span class="brand-name">Fabrix</span></a
+        >
+        <button id="sidebar-toggle" class="sidebar-toggle" type="button" aria-controls="sidebar" aria-expanded="true" aria-label="Collapse sidebar" title="Collapse sidebar"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg></button>
+      </div>
+      <nav aria-label="Main navigation">
+        <a href="/fleet" data-nav="fleet" title="Plants"
+          ><span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span><span class="nav-label">Plants</span></a
+        >
+        <a href="/studio" data-nav="studio" title="Operations studio"
+          ><span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span><span class="nav-label">Operations studio</span></a
+        >
+        <a href="/faculties" data-nav="faculties" title="Specialist Faculties"
+          ><span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 3v4M15 3v4M9 17v4M15 17v4M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></span><span class="nav-label">Specialist Faculties</span></a
+        >
+        <a href="/agents" data-nav="agents" title="Agent estate"
+          ><span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M12 7.5v4M12 11.5l-6 5.5M12 11.5l6 5.5"/></svg></span><span class="nav-label">Agent estate</span></a
+        >
+        <a href="/investigations" data-nav="investigations" title="Investigations"
+          ><span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4M12 16h4M8 11h.01M8 16h.01"/></svg></span><span class="nav-label">Investigations</span></a
+        >
+        <a href="/impact" data-nav="impact" title="Impact"
+          ><span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/><path d="m4 7 6-4 6 6 5-4"/></svg></span><span class="nav-label">Impact</span></a
+        >
+        <a href="/assets" data-nav="assets" title="Add plant"
+          ><span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg></span><span class="nav-label">Add plant</span></a
+        >
+        <a href="/system" data-nav="system" title="System"
+          ><span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg></span><span class="nav-label">System</span></a
+        >
+      </nav>
+    </aside>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          Workspace <span>/</span
+          ><strong id="breadcrumb"></strong>
+        </div>
+        <div id="view-tabs" class="studio-tabs" role="tablist" aria-orientation="horizontal" aria-label="Studio views" data-pages="studio">
+          <button id="view-tab-twin" type="button" role="tab" aria-selected="true" aria-controls="twin-panel" title="Digital twin"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 13 9 5 9-5"/></svg><span>Digital twin</span></button>
+          <button id="view-tab-flow" type="button" role="tab" aria-selected="false" aria-controls="flow-panel" tabindex="-1" title="Process flow"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="6" height="5" rx="1"/><rect x="15" y="4" width="6" height="5" rx="1"/><rect x="9" y="15" width="6" height="5" rx="1"/><path d="M9 6.5h6M6 9v3h12V9M12 12v3"/></svg><span>Process flow</span></button>
+          <button id="view-tab-hmi" type="button" role="tab" aria-selected="false" aria-controls="hmi-panel" tabindex="-1" title="HMI screens"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4M7 13l3-3 3 2 4-4"/></svg><span>HMI screens</span></button>
+        </div>
+        <div id="faculties-tabs" class="studio-tabs" role="tablist" aria-orientation="horizontal" aria-label="Specialist Faculties views" data-pages="faculties">
+          <button id="faculties-tab-overview" type="button" role="tab" aria-selected="true" aria-controls="faculties-host" data-tab="overview" title="Overview"><span>Overview</span></button>
+          <button id="faculties-tab-learning" type="button" role="tab" aria-selected="false" aria-controls="faculties-host" tabindex="-1" data-tab="learning" title="Learning core"><span>Learning</span></button>
+          <button id="faculties-tab-vision" type="button" role="tab" aria-selected="false" aria-controls="faculties-host" tabindex="-1" data-tab="vision" title="Vision core"><span>Vision</span></button>
+          <button id="faculties-tab-robot" type="button" role="tab" aria-selected="false" aria-controls="faculties-host" tabindex="-1" data-tab="robot" title="Robot core"><span>Robot</span></button>
+          <button id="faculties-tab-optimization" type="button" role="tab" aria-selected="false" aria-controls="faculties-host" tabindex="-1" data-tab="optimization" title="Optimization core"><span>Optimization</span></button>
+        </div>
+        <div class="header-end">
+          <a href="/docs" target="_blank" rel="noopener" data-pages="system"
+            >API documentation ↗</a
+          >
+        </div>
+      </header>
+      <main id="main" tabindex="-1">
+        <section class="intro">
+          <div>
+            <p class="eyebrow" id="page-kicker">Operations</p>
+            <h1 id="page-title">Fleet overview</h1>
+            <p id="page-description">
+              Process health and investigation outcomes.
+            </p>
+          </div>
+        </section>
+        <section data-pages="fleet" class="fl-head" aria-labelledby="fl-title">
+          <div>
+            <h1 id="fl-title">Plants</h1>
+            <p id="fl-summary" class="fl-summary" aria-live="polite">Loading plants…</p>
+          </div>
+          <div class="fl-tools">
+            <label class="fl-search"><span class="sr-only">Search plants</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <input id="fleet-card-search" type="search" placeholder="Search plants" autocomplete="off" /></label>
+            <a class="fl-cta" href="/assets"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Add plant</span></a>
+          </div>
+        </section>
+        <p id="fl-status" class="fl-banner" role="status" hidden>Connection lost. Showing the last values and retrying.</p>
+        <section data-pages="fleet" id="fleet-cards" class="fl-grid" aria-label="Plants"></section>
+        <p id="fl-empty" class="fl-empty" data-pages="fleet" hidden>No plants match your search.</p>
+        <section data-pages="faculties" id="faculties-host" class="faculties" role="tabpanel" aria-label="Specialist Faculties"></section>
+        <section data-pages="agents" id="agents-host" class="agents" aria-label="Agent estate"></section>
+        <section data-pages="impact" id="impact-host" class="impact" aria-label="Impact"></section>
+        <section data-pages="investigations" class="panel">
+          <div class="section-heading">
+            <div><h2>Investigation register</h2><p id="inv-summary" class="muted"></p></div>
+            <label
+              >Status<select id="incident-filter">
+                <option value="all">All outcomes</option>
+                <option>resolved</option>
+                <option>escalated</option>
+                <option>failed</option>
+                <option>interrupted</option>
+                <option>awaiting_approval</option>
+                <option>verifying</option>
+              </select></label
+            >
+          </div>
+          <div id="incident-register" class="table-scroll"></div>
+        </section>
+        <section data-pages="system" class="system-grid">
+          <article class="panel">
+            <h2>Investigation harnesses</h2>
+            <p class="muted">
+              A common tool contract with independent control validation.
+            </p>
+            <div id="harness-register"></div>
+          </article>
+          <article class="panel">
+            <h2>Platform runtime</h2>
+            <dl class="runtime-list">
+              <div>
+                <dt>Environment</dt>
+                <dd>Local simulation</dd>
+              </div>
+              <div>
+                <dt>State persistence</dt>
+                <dd>SQLite / atomic receipts</dd>
+              </div>
+              <div>
+                <dt>Refresh interval</dt>
+                <dd>5 seconds</dd>
+              </div>
+              <div>
+                <dt>Process model</dt>
+                <dd>60-step thermal surrogate</dd>
+              </div>
+              <div>
+                <dt>Control authority</dt>
+                <dd>Independent gateway</dd>
+              </div>
+            </dl>
+            <p class="muted">
+              Physics advances during simulation and investigations. Snapshot
+              polling does not advance the process.
+            </p>
+            <a href="/docs" target="_blank" rel="noopener"
+              >Explore platform API ↗</a
+            >
+          </article>
+        </section>
+        <section class="panel" data-pages="system">
+          <div class="section-heading"><h2>Capability registry</h2><span class="tag">Approved plant scopes</span></div>
+          <div id="registry-table" class="table-scroll"></div>
+          <div id="specialist-list"></div>
+          <details class="specialist-registration"><summary>Register A2A specialist</summary>
+            <p class="muted">Connect an advisory specialist to a specific twin. Registration verifies its agent card; approved delegation shares that twin's incident snapshot.</p>
+            <form id="specialist-form">
+              <label>Specialist ID<input name="id" required pattern="[a-z][a-z0-9_-]{0,40}" placeholder="process-expert"></label>
+              <label>Name<input name="name" required maxlength="100" placeholder="Process expert"></label>
+              <label>Agent endpoint<input name="url" type="url" required placeholder="https://agent.example.com"></label>
+              <label>Plant ID<input name="plant_id" required placeholder="cement-demo"></label>
+              <label class="specialist-consent"><input name="approved" type="checkbox" required>Approve scoped snapshot sharing with this specialist</label>
+              <button>Register specialist</button>
+            </form>
+          </details>
+        </section>
+        <div id="message" role="status" aria-live="polite"></div>
+        <!-- Legacy controls kept in the DOM (scripts bind to them) but not shown. -->
+        <div class="studio-legacy" hidden>
+        <div class="asset-toolbar" data-pages="studio">
+          <div id="plants"></div>
+          <div class="layer-summary" aria-label="Automation layers">
+            <button id="layer-reflexive" class="layer-chip" type="button" aria-haspopup="dialog"><span>Reflexive</span><strong>Connecting</strong></button>
+            <button id="layer-perceptual" class="layer-chip" type="button" aria-haspopup="dialog"><span>Perceptual</span><strong>Connecting</strong></button>
+            <button id="layer-cognitive" class="layer-chip" type="button" aria-haspopup="dialog"><span>Cognitive</span><strong>Connecting</strong></button>
+          </div>
+          <button id="refresh" class="secondary" aria-label="Refresh state">
+            ↻ Refresh</button
+          ><button id="reset" class="secondary">Reset</button>
+        </div>
+        </div>
+        <section id="plant-hub" class="plant-hub" data-pages="studio" data-stale="false" aria-label="Plant views">
+          <section id="flow-panel" class="panel flow-panel" role="tabpanel" aria-labelledby="view-tab-flow" hidden>
+            <div class="section-heading">
+              <div><p class="eyebrow">Process flow</p><h2 id="flow-title">Process flow</h2></div>
+              <span class="tag">Illustrative layout · simulated data</span>
+            </div>
+            <div id="flow-host"></div>
+          </section>
+          <section id="hmi-panel" class="panel hmi-panel" role="tabpanel" aria-labelledby="view-tab-hmi" hidden>
+            <div class="section-heading">
+              <div><h2>HMI screens</h2></div>
+              <span class="tag">Read-only · simulated data</span>
+            </div>
+            <div id="hmi-host"></div>
+          </section>
+        </section>
+        <section id="twin-panel" class="workspace" data-pages="studio" data-twin-only role="tabpanel" aria-labelledby="view-tab-twin">
+          <section class="scene-panel panel">
+            <div class="scene-heading">
+              <div>
+                <p id="industry-label" class="eyebrow">INDUSTRY TWIN</p>
+                <h2 id="scene-title">Loading workspace…</h2>
+              </div>
+              <div class="scene-actions">
+                <label class="asset-switch"
+                  ><span class="sr-only">Active asset</span
+                  ><select id="active-twin" aria-label="Active asset"></select></label>
+                <span id="scene-status" class="status">Connecting</span>
+              </div>
+            </div>
+            <div id="viewport">
+              <div id="scene-error" role="status"></div>
+              <div class="viewport-caption">
+                Digital twin / engineering view
+              </div>
+              <div id="equipment-annotations" aria-hidden="true"></div>
+              <div class="scene-legend">
+                <span class="legend-dot"></span>Temperature response
+                <span id="view-label">Isometric view</span>
+              </div>
+              <div class="scene-help">
+                Drag to orbit · Scroll to zoom · Click equipment to highlight
+              </div>
+              <div class="scene-clock" id="scene-clock" role="status" aria-live="off">Sim time —</div>
+              <div class="scene-marker" id="scene-reading">— °C</div>
+            </div>
+            <div class="view-toolbar">
+              <div class="segmented" aria-label="Camera views">
+                <button data-camera="iso" class="active">Isometric</button
+                ><button data-camera="top">Top</button
+                ><button data-camera="front">Front</button>
+              </div>
+              <div class="view-options">
+                <button id="fit-view" class="secondary">Fit equipment</button
+                ><label
+                  ><input type="checkbox" id="equipment-labels" checked />
+                  Labels</label
+                >
+                <label
+                  ><input type="checkbox" id="heatmap" checked /> Thermal
+                  overlay</label
+                ><label><input type="checkbox" id="cutaway" /> Cutaway</label
+                ><button id="motion" class="secondary" aria-pressed="false">
+                  Pause motion
+                </button>
+              </div>
+            </div>
+            <div class="process-instruments">
+              <div class="process-instruments-heading">
+                <h3 id="process-instruments-title">Process instruments</h3>
+                <span id="process-instruments-source">Snapshot estimates</span>
+              </div>
+              <div id="process-instrument-grid" class="process-instrument-grid" aria-label="Industry process instruments"></div>
+            </div>
+          </section>
+          <aside class="control-panel panel">
+            <div class="instrument-heading">
+              <h2>Process temperature</h2>
+              <button
+                id="temperature-unit"
+                class="secondary"
+                aria-label="Switch temperature unit to Fahrenheit"
+              >
+                °C / °F
+              </button>
+            </div>
+            <div class="temperature-instrument">
+              <svg
+                id="temperature-gauge"
+                viewBox="0 0 130 210"
+                aria-hidden="true"
+              ></svg>
+              <div class="instrument-reading">
+                <span id="reading-source">Snapshot</span>
+                <div class="temperature">
+                  <strong id="temperature">—</strong
+                  ><span id="temperature-unit-label">°C</span>
+                </div>
+                <span id="gauge-condition" class="status">Connecting</span>
+                <div class="instrument-reference">
+                  <span>Setpoint</span><strong id="gauge-target">—</strong
+                  ><span>Deviation</span><strong id="gauge-deviation">—</strong>
+                </div>
+                <button id="live-snapshot" class="quiet">
+                  Return to snapshot
+                </button>
+              </div>
+            </div>
+            <div id="duty-instruments"></div>
+            <div class="response-monitor">
+              <div><strong id="response-command">No cognitive command applied</strong><span id="response-verification">Current simulator snapshot</span></div>
+              <svg id="response-sparkline" viewBox="0 0 270 36" role="img" aria-label="Observed temperature trend"><line x1="0" x2="270" y1="30" y2="30" stroke="#9dbbac" stroke-dasharray="3 3"/><polyline fill="none" stroke="#267d9a" stroke-width="2"/></svg>
+              <span id="response-trend">Steady</span>
+            </div>
+            <details class="instrument-details">
+              <summary>Signal &amp; instrument details</summary>
+              <div class="telemetry-grid" id="telemetry"></div>
+              <p id="gauge-range" class="control-caption"></p>
+            </details>
+            <div class="divider"></div>
+            <div class="plant-run">
+              <button id="sim-toggle" type="button" class="sim-toggle" data-state="off" aria-label="Start main plant simulation" title="Start main plant simulation">
+                <svg class="sim-icon sim-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>
+                <svg class="sim-icon sim-icon-stop" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+                <span class="sim-toggle-label">Start main plant simulation</span>
+              </button>
+              <p class="control-caption">Starts the digital twin signals for the plant shown.</p>
+            </div>
+          </aside>
+          <section id="sim-panel" class="sim-panel panel" data-pages="studio" data-running="false" aria-labelledby="sim-title">
+            <header class="sim-head">
+              <div class="sim-head-main">
+                <span class="sim-head-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+                </span>
+                <div class="sim-head-text">
+                  <div class="sim-head-row">
+                    <h2 id="sim-title" class="sim-title">Fault injection</h2>
+                    <span id="sim-state" class="sim-pill" data-level="off" role="status">Connecting</span>
+                    <span id="sim-kill" class="sim-kill" hidden title="Kill switch: all agents and the harness stop when this runs out"></span>
+                  </div>
+                  <p id="sim-detail" class="sim-detail"></p>
+                </div>
+              </div>
+              <div class="sim-head-tools">
+                <div id="sim-stop-row" class="sim-stop-row" title="Stop the whole run (simulation, agents, robots) after this many verified recoveries">
+                  <label class="sim-switch" for="sim-stop-toggle" aria-label="Stop the run after a number of verified recoveries">
+                    <input id="sim-stop-toggle" type="checkbox" role="switch" />
+                    <span class="sim-switch-track" aria-hidden="true"></span>
+                  </label>
+                  <div class="sim-stop-body">
+                    <span class="sim-stop-label">Stop after</span>
+                    <span class="sim-stop-value">
+                      <input id="sim-stop-count" class="sim-stop-count" type="number" min="1" max="20" step="1" value="2" inputmode="numeric" aria-label="Verified recoveries before the run stops" />
+                      <span class="sim-stop-unit" id="sim-stop-unit">recoveries</span>
+                    </span>
+                  </div>
+                </div>
+                <dl class="sim-readouts">
+                  <div class="sim-readout"><dt>Sim time</dt><dd id="sim-clock">—</dd></div>
+                  <div class="sim-readout"><dt>Revision</dt><dd id="sim-rev">—</dd></div>
+                </dl>
+                <div class="sim-quick-actions">
+                  <button id="sim-reset" type="button" class="secondary" title="Reset plant state to baseline">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    <span>Reset plant</span>
+                  </button>
+                  <button id="sim-unit" type="button" class="secondary" aria-label="Temperature unit Celsius. Switch to Fahrenheit.">°C</button>
+                </div>
+              </div>
+            </header>
+            <div class="sim-controls">
+              <div class="sim-field sim-field-agent">
+                <div class="sim-agent-mode">
+                  <span class="sim-label" id="sim-modes-label">Response mode</span>
+                  <div id="sim-modes" class="sim-modes" role="radiogroup" aria-labelledby="sim-modes-label">
+                    <button type="button" role="radio" data-mode="observe" aria-checked="false">Observe</button>
+                    <button type="button" role="radio" data-mode="supervised" aria-checked="false">Supervised</button>
+                    <button type="button" role="radio" data-mode="autopilot" aria-checked="true">Autopilot</button>
+                  </div>
+                  <p id="sim-mode-hint" class="sim-help"></p>
+                </div>
+                <div id="sim-harness-row" class="sim-agent-harness">
+                  <label class="sim-label" for="harness">Agent harness</label>
+                  <select id="harness">
+                    <option value="reference">Reference · offline</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sim-field sim-field-fault">
+                <label class="sim-label" for="fault-select">Inject disturbance</label>
+                <div class="sim-inject">
+                  <select id="fault-select" aria-label="Fault or event"></select>
+                  <button id="fault-inject" type="button">Inject</button>
+                </div>
+                <p id="fault-desc" class="sim-help"></p>
+              </div>
+            </div>
+            <p id="sim-message" class="sim-message" role="status" aria-live="polite"></p>
+            <div id="sim-approval" class="sim-approval" hidden>
+              <span class="sim-approval-badge">Approval requested</span>
+              <p id="sim-proposal"></p>
+              <div class="sim-approval-actions">
+                <button id="sim-approve" type="button" class="sim-approve-btn">Approve action</button>
+                <button id="sim-reject" type="button" class="secondary">Reject</button>
+              </div>
+            </div>
+            <div id="sim-attention" class="sim-attention" role="alert" hidden>
+              <span class="sim-attention-badge">Needs attention</span>
+              <p id="sim-attention-reason"></p>
+              <div class="sim-attention-actions">
+                <button id="sim-fixed" type="button" class="sim-approve-btn" title="Tell the simulator the problem was repaired: active faults are cleared and the agent goes back to watching">Mark fixed</button>
+                <button id="sim-investigate" type="button" class="secondary" title="Keep the fault and run a fresh investigation">Investigate again</button>
+                <button id="sim-dismiss" type="button" class="secondary" title="Acknowledge the alert and leave automation off">Dismiss</button>
+              </div>
+            </div>
+            <ol id="sim-steps" class="sim-steps" aria-label="Agent response" hidden></ol>
+          </section>
+        </section>
+        <dialog id="layer-dialog" aria-labelledby="layer-dialog-title"><div class="layer-dialog-heading"><h2 id="layer-dialog-title">Automation layer</h2><button id="layer-dialog-close" class="secondary" type="button">Close</button></div><div id="layer-dialog-content"></div></dialog>
+        <div id="operations-announcer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+        <section class="analysis-grid" data-pages="investigations" data-twin-only>
+          <article class="panel response">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Response analysis</p>
+                <h2>Recovery timeline</h2>
+              </div>
+              <span id="trajectory-kind" class="tag"
+                >AWAITING INVESTIGATION</span
+              >
+            </div>
+            <p id="caption">
+              Inject a fault and investigate, or simulate a what-if adjustment.
+            </p>
+            <svg
+              id="chart"
+              viewBox="0 0 720 210"
+              role="img"
+              aria-label="Temperature trajectory"
+            ></svg>
+            <div class="playback">
+              <button id="play" class="secondary" disabled>▶ Replay</button
+              ><input
+                id="scrub"
+                aria-label="Trajectory step"
+                type="range"
+                min="0"
+                max="60"
+                value="0"
+                disabled
+              /><span id="step-label">0 / 0</span
+              ><select id="speed" aria-label="Playback speed">
+                <option value="8">1×</option>
+                <option value="16">2×</option>
+                <option value="32">4×</option>
+              </select>
+            </div>
+            <p class="control-caption">
+              Replay animates recorded temperatures; ticks are simulation steps,
+              not seconds.
+            </p>
+          </article>
+          <article class="panel activity">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Selected twin activity</p>
+                <h2>Incident activity</h2>
+              </div>
+              <span id="activity-count" class="tag">0 EVENTS</span>
+            </div>
+            <div id="incidents"></div>
+          </article>
+        </section>
+        <details id="agent-console" class="agent-console" data-pages="studio investigations">
+          <summary><span>Investigation console</span><span id="console-state" role="status">Ready</span></summary>
+          <div class="console-toolbar">
+            <span id="console-session">Run an investigation to stream activity.</span>
+            <div>
+              <button id="console-follow" class="secondary" aria-pressed="true">Follow output</button>
+              <button id="console-export" class="secondary">Save log</button>
+              <button id="console-cancel" class="secondary" disabled>Cancel investigation</button>
+            </div>
+          </div>
+          <div id="console-log" class="console-log" role="log" aria-label="Investigation output" aria-live="off" tabindex="0">
+            <p class="console-empty">Agent responses and tool activity will appear here.</p>
+          </div>
+          <div class="console-footer"><span id="console-count">0 events</span><span>Public responses · scoped tools · validated outcome</span></div>
+        </details>
+        <details
+          id="evidence-panel"
+          class="panel evidence-panel"
+          data-pages="studio investigations"
+          data-twin-only
+        >
+          <summary>Proposal &amp; execution evidence</summary>
+          <div class="section-heading">
+            <h2>Investigation evidence</h2>
+            <span id="evidence-label" class="tag">PLATFORM AUDIT</span>
+          </div>
+          <div id="audit" class="audit"></div>
+          <pre id="evidence">
+Select an incident to inspect its proposal, evidence and execution record.</pre>
+        </details>
+        <section data-pages="assets" class="ap" aria-labelledby="ap-title">
+          <header class="ap-hero">
+            <p class="fl-eyebrow">Onboarding</p>
+            <h1 id="ap-title">Add a plant</h1>
+            <p>Pick an industry pack, name the plant and open it in the studio. It arrives with its process flow, HMI screens and agent layers.</p>
+          </header>
+          <div class="ap-layout">
+            <form id="onboard" class="ap-form" action="/api/plants" method="post" novalidate>
+              <fieldset class="ap-step">
+                <legend><span class="ap-num">1</span>Choose an industry pack</legend>
+                <div id="ap-packs" class="ap-packs"></div>
+              </fieldset>
+              <fieldset class="ap-step">
+                <legend><span class="ap-num">2</span>Name the plant</legend>
+                <label>Plant name<input name="name" required maxlength="100" placeholder="Cement line 2" autocomplete="off" /></label>
+                <label>Plant ID<input name="id" required pattern="[a-z][a-z0-9_\-]{0,63}" autocapitalize="off" spellcheck="false" placeholder="cement-line-2" autocomplete="off" />
+                  <small>Lowercase letters, numbers, hyphen and underscore. Generated from the name.</small></label>
+              </fieldset>
+              <div class="ap-submit">
+                <button type="submit">Create plant</button>
+                <p id="ap-message" class="ap-message" role="status" aria-live="polite"></p>
+              </div>
+            </form>
+            <aside class="ap-side" aria-label="Preview">
+              <p class="ap-side-label">Preview</p>
+              <div id="ap-preview" class="ap-preview"></div>
+            </aside>
+          </div>
+          <details class="ap-manifest">
+            <summary>Import an onboarding manifest</summary>
+            <p class="muted">Map simulator assets, signals and the supported thermal-duty control. External plant connectors require a reviewed connector implementation.</p>
+            <form id="manifest-form"><label for="manifest-json">Manifest JSON</label><textarea id="manifest-json" rows="9" required spellcheck="false">{"plant":{"id":"manifest-demo","name":"Sample cement plant","industry":"cement"},"connector":"twin","assets":[{"id":"kiln","name":"Rotary kiln"}],"signals":[{"name":"temperature","source":"temperature","unit":"degC","basis":"simulated"}]}</textarea>
+              <button type="submit">Import plant</button><p id="manifest-message" class="ap-message" role="status" aria-live="polite"></p></form>
+          </details>
+        </section>
+        <footer>
+          <span>Fabrix</span
+          ><span
+            >Process models and equipment visualization are simulated.</span
+          >
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

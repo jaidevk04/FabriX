@@ -1,0 +1,151 @@
+{
+  "eval_set_id": "learning_core_v1",
+  "name": "learning_core_v1",
+  "description": "Offline-replayable cases for the learning core.",
+  "eval_cases": [
+    {
+      "eval_id": "learning_case_1",
+      "conversation": [
+        {
+          "invocation_id": "learning-1-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Which equipment deviates, and why?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The drive shows rising vibration and current, an advanced bearing-type signature."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "learning_read_encoder_scores",
+                "args": {}
+              },
+              {
+                "name": "learning_list_channels",
+                "args": {
+                  "equipment": "drive"
+                }
+              },
+              {
+                "name": "learning_read_features",
+                "args": {
+                  "channel": "drive_vibration",
+                  "response_format": "detailed"
+                }
+              },
+              {
+                "name": "learning_compare_baseline",
+                "args": {
+                  "channel": "drive_current"
+                }
+              },
+              {
+                "name": "learning_estimate_remaining_life",
+                "args": {
+                  "equipment": "drive"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "learning_case_2",
+      "conversation": [
+        {
+          "invocation_id": "learning-2-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Do the cameras confirm the burner signal?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The vision core's detections were read as independent evidence."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "learning_request_evidence",
+                "args": {
+                  "to_core": "vision",
+                  "kind": "read_detections",
+                  "target": "burner",
+                  "question": "Any flame detections?"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "learning_case_3",
+      "conversation": [
+        {
+          "invocation_id": "learning-3-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Decide on the approved monitor configuration order."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "executed"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "learning_apply_monitor_config",
+                "args": {}
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    }
+  ]
+}

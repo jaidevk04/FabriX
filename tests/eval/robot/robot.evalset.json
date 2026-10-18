@@ -1,0 +1,155 @@
+{
+  "eval_set_id": "robot_core_v1",
+  "name": "robot_core_v1",
+  "description": "Offline-replayable cases for the robot core.",
+  "eval_cases": [
+    {
+      "eval_id": "robot_case_1",
+      "conversation": [
+        {
+          "invocation_id": "robot-1-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Can a robot check the drive in person?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The inspector verified the drive with the vibration probe."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "robot_read_fleet",
+                "args": {}
+              },
+              {
+                "name": "robot_read_zones",
+                "args": {
+                  "zone": "drive-house"
+                }
+              },
+              {
+                "name": "robot_check_mission",
+                "args": {
+                  "kind": "verify",
+                  "target": "drive",
+                  "tool_name": "vibration_probe"
+                }
+              },
+              {
+                "name": "robot_run_mission",
+                "args": {
+                  "kind": "verify",
+                  "target": "drive",
+                  "tool_name": "vibration_probe",
+                  "expect": "kiln_drive_bearing_wear"
+                }
+              },
+              {
+                "name": "robot_read_mission_result",
+                "args": {
+                  "mission_id": "mis-example"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "robot_case_2",
+      "conversation": [
+        {
+          "invocation_id": "robot-2-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "What do signals say about the drive?"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Signal evidence was read before planning the inspection."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "robot_request_evidence",
+                "args": {
+                  "to_core": "learning",
+                  "kind": "read_signal_evidence",
+                  "target": "drive",
+                  "question": "Is the drive vibrating?"
+                }
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "robot_case_3",
+      "conversation": [
+        {
+          "invocation_id": "robot-3-1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Decide on the approved repair order."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "executed"
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "tool_uses": [
+              {
+                "name": "robot_execute_order",
+                "args": {}
+              }
+            ],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "avenor_cores",
+        "user_id": "platform",
+        "state": {}
+      }
+    }
+  ]
+}

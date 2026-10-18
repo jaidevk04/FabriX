@@ -1,0 +1,26 @@
+# Start:  docker compose up -d --build     Open: http://<server>:8000  (change the port with FABRIX_PORT)
+# Settings come from .env (copy .env.example). Keys such as GOOGLE_API_KEY are read at run time and are
+# never copied into the image.
+services:
+  fabrix:
+    build: .
+    image: fabrix:latest
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      # These win over .env so a desktop-style .env cannot break the container.
+      COGNITION_HOST: 0.0.0.0
+      COGNITION_PORT: "8000"
+      COGNITION_DB: /data/platform.db
+      COGNITION_ADK_PYTHON: ""
+      COGNITION_ANTIGRAVITY_PYTHON: ""
+      COGNITION_DEEPAGENTS_PYTHON: ""
+    ports:
+      - "${FABRIX_PORT:-8000}:8000"
+    volumes:
+      - fabrix-data:/data
+    restart: unless-stopped
+
+volumes:
+  fabrix-data:

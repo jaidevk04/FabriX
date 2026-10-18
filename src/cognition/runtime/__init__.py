@@ -1,0 +1,1 @@
+"""Avenor platform module."""
