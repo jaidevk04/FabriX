@@ -45,7 +45,7 @@ The rule that holds everything together: an agent can only return **one typed pr
 
 ## Contents
 
-- [The idea: a technological organism](#the-idea-a-technological-organism)
+- [Architecture](#architecture)
 - [The cores: faculties as services](#the-cores-faculties-as-services)
 - [What you get](#what-you-get)
 - [Quick start](#quick-start)
@@ -57,9 +57,9 @@ The rule that holds everything together: an agent can only return **one typed pr
 - [Development](#development)
 - [Limitations](#limitations)
 
-## The idea: a technological organism
+## Architecture
 
-Fabrix treats a plant the way biology treats a body: fast reflexes that act, slower cognition that decides, and a strict boundary between the two.
+Three ideas carry the design: control and cognition are separated, they run on different timescales with different authority, and only the fastest layer is allowed to touch the plant.
 
 ### Two systems, and the boundary between them
 
@@ -75,17 +75,17 @@ Cognition never actuates. It can only hand a typed proposal to the boundary, whi
 
 ### Three layers, by timescale and authority
 
-| Layer | Brain analogy | Timescale | Role | In this prototype |
+| Layer | Authority | Timescale | Role | In this prototype |
 | --- | --- | --- | --- | --- |
-| **Reflexive** | Reptilian core | µs – ms | Hard real-time control and interlocks. The only layer that actuates. | Simulated feedback control, a high-temperature cutoff and robot zone interlocks |
-| **Perceptual** | Limbic system | ms – s | Learned pattern recognition and prediction | Core monitors and a simulated sensor model, evaluated on every tick |
-| **Cognitive** | Neocortex | s – min | Reasoning, planning, cross-domain correlation | Agent investigations, which take tens of seconds to minutes |
+| **Reflexive** | Actuates | µs – ms | Hard real-time control and interlocks. The only layer that actuates. | Simulated feedback control, a high-temperature cutoff and robot zone interlocks |
+| **Perceptual** | Observes | ms – s | Learned pattern recognition and prediction | Core monitors and a simulated sensor model, evaluated on every tick |
+| **Cognitive** | Proposes | s – min | Reasoning, planning, cross-domain correlation | Agent investigations, which take tens of seconds to minutes |
 
 The cognitive layer does not micro-manage the fast loops. It sets their set-points, monitors them, and steps in when context changes the right answer. In the prototype the lever is the thermal duty set-point, which the reflexive feedback then regulates around.
 
-### Homeostasis
+### Keeping the plant in band
 
-Like an organism, Fabrix tries to hold a set of operational set-points (temperature, throughput, quality, energy) in a dynamic equilibrium: **sense → reason → validate → act → feed back.** Because it forecasts on a copy of the plant before acting, it can correct a developing deviation rather than only react to one.
+Fabrix holds a set of operational set-points (temperature, throughput, quality, energy) inside their target bands with a closed loop: **sense → reason → validate → act → feed back.** Because it forecasts on a copy of the plant before acting, it can correct a developing deviation rather than only react to one.
 
 ### Human authority
 
